@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Cafeteria Products</h1>
+
+<p>Welcome to the Products Page.</p>
+
+@section Scripts{
+    <script>
+    alert("Welcome to the Products Page!")
+    </script>
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/products.css" />
+}
+
+@{
+    string[] products = { "Water", "Orange Juice", "Coffee", "Sandwich", "Chocolate", "Milk" };
+    
+}
+<ul>
+    @foreach(string product in products)
+    {
+        string category="";
+
+        switch (product)
+        {
+            case "Water":
+            case "Orange Juice":
+            case "Coffee":
+            case "Milk":
+                category = "Drink";
+                break;
+
+            case "Sandwich":
+                category = "Food";
+                break;
+
+            case "Chocolate":
+                category = "Snack";
+                break;
+        }
+
+        <li>@product - @category</li>
+    }
+</ul>
+
+@if (products.Length > 0)
+{
+    <p>We have products available.</p>
+}
+else
+{
+    <p>No products available.</p>
+}
+
+@if (products.Length >= 3)
+{
+    <p>We have enough Products.</p>
+}
+else
+{
+    <p>We need more Products.</p>
+}
+
+
+<a asp-controller="Cafeteria" asp-action="Index">Back to Home</a>
