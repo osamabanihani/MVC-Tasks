@@ -1,0 +1,9 @@
+@{
+    ViewData["Title"] = "Request Result";
+}
+<h1>Request Result</h1>
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger mt-3" role="alert">@ViewBag.Error</div>
+}
+<a class="btn btn-primary mt-2" asp-controller="Supply" asp-action="CreateRequest">Back to Form</a>

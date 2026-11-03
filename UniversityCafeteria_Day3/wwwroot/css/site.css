@@ -1,0 +1,6 @@
+body { background: #f8fafc; color: #1f2937; min-height: 100vh; }
+main { min-height: calc(100vh - 145px); }
+h1 { font-weight: 700; margin-bottom: 1rem; }
+.card { border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 3px 14px rgba(0,0,0,.035); }
+.list-group-item { padding: .85rem 1rem; }
+.form-card { max-width: 620px; }

@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Cafeteria Products";
+}
+<h1>@ViewData["Title"]</h1>
+<div class="card p-3 my-4">
+    <h5>Manager: @ViewData["Manager"]</h5>
+    <p class="mb-0">Number of Products: @ViewData["Count"]</p>
+</div>
+<div class="row g-3">
+    @foreach (string product in (string[])ViewData["Products"]!)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="card h-100 p-3"><h5 class="mb-0">@product</h5></div>
+        </div>
+    }
+</div>

@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Suppliers";
+}
+<h1>@ViewBag.Title</h1>
+<p class="text-muted">Number of Suppliers: @ViewBag.Count</p>
+<ul class="list-group mt-3">
+    @foreach (string supplier in ViewBag.Suppliers)
+    {
+        <li class="list-group-item">@supplier</li>
+    }
+</ul>
