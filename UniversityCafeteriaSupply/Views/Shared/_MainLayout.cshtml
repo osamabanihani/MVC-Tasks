@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - University Cafeteria</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a class="brand" href="@Url.Action("Index", "Cafeteria")">University Cafeteria</a>
+            <div class="navlinks">
+                <a href="@Url.Action("Index", "Cafeteria")">Home</a>
+                <a href="@Url.Action("Products", "Cafeteria")">Products</a>
+                <a href="@Url.Action("Suppliers", "Cafeteria")">Suppliers</a>
+                <a href="@Url.Action("Index", "SupplyRequest")">Create Supply Request</a>
+                <a href="@Url.Action("Review", "SupplyRequest")">Review Draft</a>
+                <a href="@Url.Action("MyRequests", "SupplyRequest")">My Requests</a>
+                <a href="@Url.Action("About", "SupplyRequest")">About</a>
+            </div>
+        </nav>
+    </header>
+    <main class="container">
+        @if (TempData["Message"] != null) { <div class="alert success">@TempData["Message"]</div> }
+        @if (TempData["Error"] != null) { <div class="alert error">@TempData["Error"]</div> }
+        @RenderBody()
+    </main>
+    <footer>University Cafeteria Supply Management System</footer>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

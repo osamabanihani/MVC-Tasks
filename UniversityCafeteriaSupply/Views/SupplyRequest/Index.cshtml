@@ -1,0 +1,68 @@
+@model SupplyItem
+@{
+    ViewData["Title"] = "Create Supply Request";
+    var savedItems = ViewBag.Items as List<SupplyItem> ?? new List<SupplyItem>();
+    string preferred = ViewBag.PreferredPriority as string ?? "Normal";
+}
+<h1>Create Supply Request</h1>
+<p>Add products one by one. Your draft is saved in Session.</p>
+<div class="two-columns">
+    <section class="panel">
+        <h2>Add Product</h2>
+        <form method="post" action="@Url.Action("AddItem", "SupplyRequest")">
+            @Html.AntiForgeryToken()
+            <label asp-for="ProductName">Product Name</label>
+            <input asp-for="ProductName" placeholder="e.g. Coffee" required />
+            <span asp-validation-for="ProductName" class="validation"></span>
+            <label asp-for="Category">Category</label>
+            <select asp-for="Category">
+                <option>Food</option><option>Drinks</option><option>Packaging</option><option>Other</option>
+            </select>
+            <label asp-for="Quantity">Quantity</label>
+            <input asp-for="Quantity" type="number" min="1" required />
+            <span asp-validation-for="Quantity" class="validation"></span>
+            <label asp-for="UnitPrice">Unit Price (JD)</label>
+            <input asp-for="UnitPrice" type="number" min="0.01" step="0.01" required />
+            <span asp-validation-for="UnitPrice" class="validation"></span>
+            <label asp-for="Priority">Priority</label>
+            <select asp-for="Priority"><option>Normal</option><option>Urgent</option><option>Emergency</option></select>
+            <span asp-validation-for="Priority" class="validation"></span>
+            <button type="submit">Add to Draft</button>
+        </form>
+    </section>
+    <section class="panel">
+        <h2>My Draft (@savedItems.Count products)</h2>
+        @if (savedItems.Count == 0)
+        {
+            <p>No products added yet.</p>
+        }
+        else
+        {
+            <table><thead><tr><th>Product</th><th>Qty</th><th>Total</th></tr></thead><tbody>
+            @foreach (var item in savedItems)
+            {
+                <tr><td>@item.ProductName</td><td>@item.Quantity</td><td>@item.Total.ToString("0.00") JD</td></tr>
+            }
+            </tbody></table>
+            <p><strong>Request priority:</strong> @ViewBag.CurrentPriority (latest added item's priority)</p>
+            <a class="button" href="@Url.Action("Review", "SupplyRequest")">Review Draft</a>
+            <form method="post" action="@Url.Action("ClearDraft", "SupplyRequest")" class="inline-form">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="danger">Clear Draft</button>
+            </form>
+        }
+        <hr />
+        <h2>Remember My Priority</h2>
+        <p>Your preferred request priority is <strong>@preferred</strong>.</p>
+        <form method="post" action="@Url.Action("SavePreference", "SupplyRequest")">
+            @Html.AntiForgeryToken()
+            <label for="priority">Default priority</label>
+            <select id="priority" name="priority">
+                <option value="Normal" selected="@(preferred == "Normal")">Normal</option>
+                <option value="Urgent" selected="@(preferred == "Urgent")">Urgent</option>
+                <option value="Emergency" selected="@(preferred == "Emergency")">Emergency</option>
+            </select>
+            <button type="submit">Save Preference (7 days)</button>
+        </form>
+    </section>
+</div>
