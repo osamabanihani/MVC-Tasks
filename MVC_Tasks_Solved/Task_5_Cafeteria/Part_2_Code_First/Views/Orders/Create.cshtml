@@ -1,0 +1,48 @@
+@model OrderFormVm
+@{ ViewData["Title"] = "New Purchase Order";
+   var suppliers = (List<Supplier>)ViewBag.Suppliers;
+   var products = (List<Product>)ViewBag.Products; }
+<h1>Create Purchase Order</h1><p>Choose one supplier and one or more of their products. Inventory only increases when you mark the order Received.</p>
+<div class="card"><form asp-action="Create" method="post" id="order-form">
+<div asp-validation-summary="All" class="error-text"></div>
+<label>Supplier <select asp-for="SupplierId" id="supplier" required><option value="0">Select supplier</option>
+@foreach (var s in suppliers) { <option value="@s.Id">@s.Name</option> }</select></label>
+<h2>Order items</h2><div id="item-rows">
+@for (var i = 0; i < Model.Items.Count; i++) {
+<div class="item-row">
+<select name="Items[@i].ProductId" class="product-select" data-selected="@Model.Items[i].ProductId">
+<option value="0">Choose product</option>
+@foreach (var p in products) { <option value="@p.Id" data-supplier="@p.SupplierId">@p.Name (@p.Price.ToString("0.00") JD)</option> }
+</select>
+<input type="number" name="Items[@i].Quantity" min="1" placeholder="Quantity" value="@(Model.Items[i].Quantity == null ? "" : Model.Items[i].Quantity.ToString())" />
+</div> }
+</div>
+<button type="button" class="secondary" id="add-row">+ Add another product</button>
+<p><button type="submit">Save Pending Order</button> <a class="btn secondary" asp-action="Index">Cancel</a></p></form></div>
+<template id="new-row"><div class="item-row"><select name="Items[INDEX].ProductId" class="product-select"><option value="0">Choose product</option>
+@foreach (var p in products) { <option value="@p.Id" data-supplier="@p.SupplierId">@p.Name (@p.Price.ToString("0.00") JD)</option> }
+</select><input type="number" name="Items[INDEX].Quantity" min="1" placeholder="Quantity" /></div></template>
+<script>
+(() => {
+  let rowIndex = document.querySelectorAll('.item-row').length;
+  const root = document.getElementById('item-rows');
+  const supplier = document.getElementById('supplier');
+  function filterProducts() {
+    for (const select of root.querySelectorAll('.product-select')) {
+      for (const opt of select.options) {
+        if (!opt.value || !opt.dataset.supplier) continue;
+        const visible = opt.dataset.supplier === supplier.value;
+        opt.hidden = !visible; opt.disabled = !visible;
+      }
+      if (select.selectedOptions.length && select.selectedOptions[0].disabled) select.value = '0';
+    }
+  }
+  document.getElementById('add-row').addEventListener('click', () => {
+    root.insertAdjacentHTML('beforeend', document.getElementById('new-row').innerHTML.replaceAll('INDEX', rowIndex++));
+    filterProducts();
+  });
+  supplier.addEventListener('change', filterProducts);
+  for (const select of root.querySelectorAll('.product-select')) select.value = select.dataset.selected || '0';
+  filterProducts();
+})();
+</script>

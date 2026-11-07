@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>@ViewData["Title"] - Cafeteria</title><link rel="stylesheet" href="~/css/site.css" /></head>
+<body><header><div class="container topbar"><b>🍽️ University Cafeteria</b>
+@if (User.Identity?.IsAuthenticated == true) {
+<nav><a href="@Url.Action("Index","Home")">Dashboard</a><a href="@Url.Action("Index","Categories")">Categories</a>
+<a href="@Url.Action("Index","Suppliers")">Suppliers</a><a href="@Url.Action("Index","Products")">Products</a>
+<a href="@Url.Action("Index","Orders")">Orders</a></nav>
+<form asp-controller="Account" asp-action="Logout" method="post"><button class="small" type="submit">Logout</button></form>
+}</div></header><main class="container">
+@if (TempData["Message"] != null) { <p class="notice">@TempData["Message"]</p> }
+@if (TempData["Error"] != null) { <p class="error notice">@TempData["Error"]</p> }
+@RenderBody()</main><footer class="container">ASP.NET Core MVC + Entity Framework Core</footer></body></html>

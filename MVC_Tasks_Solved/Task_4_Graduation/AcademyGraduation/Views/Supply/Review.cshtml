@@ -1,0 +1,10 @@
+@model List<ReviewRow>
+@{ ViewData["Title"] = "Review Request"; }
+<h1>Review Request</h1>
+<p>Three selected offers (one from every category).</p>
+<div class="card table-wrap"><table><thead><tr><th>Category</th><th>Supplier</th><th>Offer</th><th>Qty</th><th>Unit price</th><th>Offer total</th></tr></thead>
+<tbody>@foreach (var row in Model) { <tr><td>@row.Category</td><td>@row.Supplier</td><td>@row.Offer</td><td>@row.Quantity</td><td>@row.UnitPrice.ToString("0.00") JD</td><td>@row.Total.ToString("0.00") JD</td></tr> }</tbody></table></div>
+<div class="card totals"><p>Subtotal: <b>@(((decimal)ViewBag.Total).ToString("0.00")) JD</b></p>
+<p>Discount: <b>@ViewBag.DiscountPercent% (@(((decimal)ViewBag.DiscountAmount).ToString("0.00")) JD)</b></p>
+<h2>Final total: @(((decimal)ViewBag.FinalTotal).ToString("0.00")) JD</h2></div>
+<a class="button" href="@Url.Action("Index", "Supply", new { mode = ViewBag.Mode })">Edit selections</a>

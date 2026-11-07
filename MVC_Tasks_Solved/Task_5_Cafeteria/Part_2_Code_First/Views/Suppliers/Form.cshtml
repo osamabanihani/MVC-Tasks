@@ -1,0 +1,8 @@
+@model Supplier
+@{ bool edit = Model.Id > 0; ViewData["Title"] = edit ? "Edit Supplier" : "New Supplier"; }
+<h1>@ViewData["Title"]</h1><div class="card form-card"><form asp-action="@(edit ? "Edit" : "Create")" method="post">
+<input asp-for="Id" type="hidden"/><div asp-validation-summary="All" class="error-text"></div>
+<label>Name <input asp-for="Name" required maxlength="100" /></label>
+<label>Email <input asp-for="Email" type="email" required /></label>
+<label>Phone <input asp-for="Phone" required maxlength="30" /></label>
+<button type="submit">Save</button><a class="btn secondary" asp-action="Index">Cancel</a></form></div>

@@ -1,0 +1,10 @@
+@model Product
+@{ bool edit = Model.Id > 0; ViewData["Title"] = edit ? "Edit Product" : "New Product"; }
+<h1>@ViewData["Title"]</h1><div class="card form-card"><form asp-action="@(edit ? "Edit" : "Create")" method="post">
+<input asp-for="Id" type="hidden"/><div asp-validation-summary="All" class="error-text"></div>
+<label>Name <input asp-for="Name" maxlength="100" required /></label>
+<label>Price (JD) <input asp-for="Price" type="number" step="0.01" min="0" required /></label>
+<label>Quantity in stock <input asp-for="Quantity" type="number" min="0" required /></label>
+<label>Category <select asp-for="CategoryId" asp-items="ViewBag.Categories"><option value="0">Choose category</option></select></label>
+<label>Supplier <select asp-for="SupplierId" asp-items="ViewBag.Suppliers"><option value="0">Choose supplier</option></select></label>
+<button type="submit">Save</button><a class="btn secondary" asp-action="Index">Cancel</a></form></div>

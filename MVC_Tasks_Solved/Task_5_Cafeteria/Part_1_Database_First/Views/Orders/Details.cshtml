@@ -1,0 +1,14 @@
+@model PurchaseOrder
+@{ ViewData["Title"] = "Order Details"; }
+<h1>Order #@Model.Id</h1>
+<div class="card"><p><b>Supplier:</b> @Model.Supplier?.Name</p>
+<p><b>Order Date (UTC):</b> @Model.OrderDate.ToString("yyyy-MM-dd HH:mm")</p>
+<p><b>Status:</b> @Model.Status</p>
+<div class="table-wrap"><table><thead><tr><th>Product</th><th>Quantity</th><th>Unit Price</th><th>Line Total</th></tr></thead><tbody>
+@foreach (var item in Model.Items) { <tr><td>@item.Product?.Name</td><td>@item.Quantity</td>
+<td>@item.UnitPrice.ToString("0.00") JD</td><td>@((item.Quantity * item.UnitPrice).ToString("0.00")) JD</td></tr> }
+</tbody></table></div><h2>Total: @(((decimal)ViewBag.Total).ToString("0.00")) JD</h2>
+@if (Model.Status == "Pending") { <form asp-action="Receive" asp-route-id="@Model.Id" method="post">
+<button type="submit" onclick="return confirm('Mark received and increase inventory quantities?');">Mark Received (+Stock)</button></form> }
+else { <p class="notice">Inventory already increased for this order. Receiving again is disabled.</p> }
+</div><p><a class="btn secondary" asp-action="Index">Back to Orders</a></p>

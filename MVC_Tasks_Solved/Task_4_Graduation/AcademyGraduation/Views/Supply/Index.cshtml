@@ -1,0 +1,28 @@
+@model List<Category>
+@{ ViewData["Title"] = "Create Supply Request";
+   string mode = (string)ViewBag.Mode;
+   var selected = (List<int>)ViewBag.SelectedIds; }
+<h1>Create Supply Request</h1>
+<p>Select exactly one offer from each category. Selections are saved temporarily using Session.</p>
+<p><b>Choose session phase:</b>
+<a class="button @(mode == "keys" ? "active" : "")" href="@Url.Action("Index", "Supply", new { mode = "keys" })">Phase 1: Separate keys</a>
+<a class="button @(mode == "list" ? "active" : "")" href="@Url.Action("Index", "Supply", new { mode = "list" })">Phase 2: One List</a></p>
+<p class="hint">Phase 3: Categories, suppliers, and offers come from the SQL Server database.</p>
+@foreach (var category in Model)
+{
+<section class="card"><h2>@category.Name</h2><div class="table-wrap"><table>
+<thead><tr><th>Supplier</th><th>Offer name</th><th>Quantity</th><th>Unit price</th><th>Select</th></tr></thead><tbody>
+@foreach (var supplier in category.Suppliers.OrderBy(x => x.Id))
+{
+<tr><td>@supplier.Name</td><td>@supplier.Offer.Name</td><td>@supplier.Offer.Quantity</td>
+<td>@supplier.Offer.UnitPrice.ToString("0.00") JD</td><td>
+<form asp-controller="Supply" asp-action="Select" method="post">
+<input type="hidden" name="categoryId" value="@category.Id"/>
+<input type="hidden" name="offerId" value="@supplier.Offer.Id"/>
+<input type="hidden" name="mode" value="@mode" />
+<button type="submit">@(selected.Contains(supplier.Offer.Id) ? "Selected ✓" : "Choose")</button>
+</form></td></tr>
+}
+</tbody></table></div></section>
+}
+<a class="button primary" href="@Url.Action("Review", "Supply", new { mode })">Review selected offers</a>

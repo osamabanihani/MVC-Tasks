@@ -1,0 +1,7 @@
+@model List<PurchaseOrder>
+@{ ViewData["Title"] = "Purchase Orders"; }
+<div class="heading"><h1>Purchase Orders</h1><a class="btn" asp-action="Create">New Purchase Order</a></div>
+<div class="card table-wrap"><table><thead><tr><th>Order #</th><th>Date (UTC)</th><th>Supplier</th><th>Items</th><th>Total (JD)</th><th>Status</th><th></th></tr></thead><tbody>
+@foreach (var order in Model) { <tr><td>#@order.Id</td><td>@order.OrderDate.ToString("yyyy-MM-dd HH:mm")</td>
+<td>@order.Supplier?.Name</td><td>@order.Items.Count</td><td>@order.Items.Sum(x => x.Quantity * x.UnitPrice).ToString("0.00")</td>
+<td>@order.Status</td><td><a asp-action="Details" asp-route-id="@order.Id">Details</a></td></tr> }</tbody></table></div>

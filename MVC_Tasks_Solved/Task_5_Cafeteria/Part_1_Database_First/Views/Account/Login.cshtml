@@ -1,0 +1,9 @@
+@{ ViewData["Title"] = "Employee Login"; }
+<div class="login card"><h1>Employee Login</h1><p>Demo account: <code>employee</code> / <code>1234</code></p>
+@if (ViewBag.Error != null) { <p class="notice error">@ViewBag.Error</p> }
+<form asp-action="Login" method="post">
+<input name="returnUrl" type="hidden" value="@ViewBag.ReturnUrl"/>
+<label>Username <input name="username" required value="employee" autocomplete="username" /></label>
+<label>Password <input name="password" type="password" required autocomplete="current-password" /></label>
+<button type="submit">Sign in</button></form>
+<p class="muted">For learning only. Replace the demo credentials and use ASP.NET Core Identity for production.</p></div>

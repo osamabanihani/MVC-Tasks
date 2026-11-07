@@ -1,0 +1,9 @@
+@{ ViewData["Title"] = "Dashboard"; }
+<h1>Inventory & Purchase Management</h1>
+<p>Welcome, @User.Identity?.Name. Manage the five required database tables below.</p>
+<div class="stats"><a class="card" href="@Url.Action("Index","Categories")"><span>Categories</span><strong>@ViewBag.Categories</strong></a>
+<a class="card" href="@Url.Action("Index","Suppliers")"><span>Suppliers</span><strong>@ViewBag.Suppliers</strong></a>
+<a class="card" href="@Url.Action("Index","Products")"><span>Products</span><strong>@ViewBag.Products</strong></a>
+<a class="card" href="@Url.Action("Index","Orders")"><span>Purchase Orders</span><strong>@ViewBag.Orders</strong></a></div>
+<p><a class="btn" href="@Url.Action("Create","Orders")">Create a purchase order</a></p>
+<p class="muted">Ordering sets status to Pending. Receiving an order adds its quantities to product stock exactly once.</p>
