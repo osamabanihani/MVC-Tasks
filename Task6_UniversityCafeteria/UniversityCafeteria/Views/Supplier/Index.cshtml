@@ -1,0 +1,30 @@
+@model IEnumerable<Supplier>
+@{
+    ViewData["Title"] = "Suppliers";
+}
+
+<div class="page-top">
+    <h1>Suppliers</h1>
+    @Html.ActionLink("+ Add Supplier", "Create", "Supplier", null, new { @class = "button" })
+</div>
+
+<table>
+    <thead>
+        <tr><th>ID</th><th>Name</th><th>Phone</th><th>Email</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var supplier in Model)
+        {
+            <tr>
+                <td>@supplier.Id</td>
+                <td>@supplier.Name</td>
+                <td>@supplier.Phone</td>
+                <td>@supplier.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!Model.Any())
+{
+    <p class="hint">No suppliers yet. Click "Add Supplier" to begin.</p>
+}

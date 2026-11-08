@@ -1,0 +1,29 @@
+@model IEnumerable<Category>
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="page-top">
+    <h1>Categories</h1>
+    @Html.ActionLink("+ Add Category", "Create", "Category", null, new { @class = "button" })
+</div>
+
+<table>
+    <thead>
+        <tr><th>ID</th><th>Name</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+                <td>@category.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!Model.Any())
+{
+    <p class="hint">No categories yet. Click "Add Category" to begin.</p>
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - University Cafeteria</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a class="brand" href="/Category/Index">University Cafeteria</a>
+            <nav>
+                @Html.ActionLink("Categories", "Index", "Category")
+                @Html.ActionLink("Suppliers", "Index", "Supplier")
+                @Html.ActionLink("Products", "Index", "Product")
+            </nav>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        @RenderBody()
+    </main>
+</body>
+</html>

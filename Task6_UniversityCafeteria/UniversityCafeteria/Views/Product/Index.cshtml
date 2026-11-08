@@ -1,0 +1,32 @@
+@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="page-top">
+    <h1>Products</h1>
+    @Html.ActionLink("+ Add Product", "Create", "Product", null, new { @class = "button" })
+</div>
+
+<table>
+    <thead>
+        <tr><th>ID</th><th>Name</th><th>Price</th><th>Quantity</th><th>Category</th><th>Supplier</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Price.ToString("0.00")</td>
+                <td>@product.Quantity</td>
+                <td>@(product.Category?.Name)</td>
+                <td>@(product.Supplier?.Name)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!Model.Any())
+{
+    <p class="hint">No products yet. Add a category and a supplier first, then add a product.</p>
+}

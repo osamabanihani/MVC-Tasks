@@ -1,0 +1,23 @@
+@model Category
+@{
+    ViewData["Title"] = "Add Category";
+}
+<h1>Add Category</h1>
+
+@using (Html.BeginForm("Create", "Category", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new { @class = "validation" })
+
+    <div class="field">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "input" })
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "validation" })
+    </div>
+    <div class="field">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, 3, 40, new { @class = "input" })
+    </div>
+    <button type="submit" class="button">Save Category</button>
+    @Html.ActionLink("Cancel", "Index", "Category", null, new { @class = "button secondary" })
+}
