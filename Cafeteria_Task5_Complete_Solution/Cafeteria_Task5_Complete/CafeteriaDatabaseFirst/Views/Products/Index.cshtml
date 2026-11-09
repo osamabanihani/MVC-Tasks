@@ -1,0 +1,19 @@
+@model List<Product>
+@{ ViewData["Title"] = "Products"; }
+<div class="heading"><h1>Products &amp; Inventory</h1><a class="button" asp-action="Create">+ Add Product</a></div>
+<div class="card table-wrap">
+<table>
+    <thead><tr><th>Product</th><th>Category</th><th>Supplier</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        <tr><td><a asp-action="Details" asp-route-id="@p.Id">@p.Name</a></td><td>@p.Category?.Name</td><td>@p.Supplier?.Name</td>
+            <td>@p.Price.ToString("0.00") JD</td><td>@p.Quantity</td>
+            <td class="actions"><a asp-action="Edit" asp-route-id="@p.Id">Edit</a>
+                <form asp-action="Delete" asp-route-id="@p.Id" method="post" onsubmit="return confirm('Delete this product?');">
+                    <button class="danger" type="submit">Delete</button></form></td></tr>
+    }
+    </tbody>
+</table>
+@if (!Model.Any()) { <p class="muted empty">No products yet. Add a category and supplier first.</p> }
+</div>

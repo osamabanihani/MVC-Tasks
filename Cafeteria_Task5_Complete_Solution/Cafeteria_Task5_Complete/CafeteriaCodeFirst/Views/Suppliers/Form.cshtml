@@ -1,0 +1,16 @@
+@model Supplier
+@{
+    bool edit = Model.Id > 0;
+    ViewData["Title"] = edit ? "Edit Supplier" : "Add Supplier";
+}
+<h1>@ViewData["Title"]</h1>
+<div class="card form-card">
+<form asp-action="@(edit ? "Edit" : "Create")" asp-route-id="@Model.Id" method="post">
+    <input asp-for="Id" type="hidden" />
+    <div asp-validation-summary="All" class="validation"></div>
+    <label>Name <input asp-for="Name" maxlength="100" required /></label>
+    <label>Email <input asp-for="Email" type="email" maxlength="150" required /></label>
+    <label>Phone <input asp-for="Phone" maxlength="30" required /></label>
+    <div class="buttons"><button type="submit">Save Supplier</button><a class="button secondary" asp-action="Index">Cancel</a></div>
+</form>
+</div>

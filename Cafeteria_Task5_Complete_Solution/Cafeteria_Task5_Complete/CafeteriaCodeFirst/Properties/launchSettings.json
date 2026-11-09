@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "CafeteriaCodeFirst": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "Account/Login",
+      "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Development" },
+      "applicationUrl": "https://localhost:7256;http://localhost:5256"
+    }
+  }
+}

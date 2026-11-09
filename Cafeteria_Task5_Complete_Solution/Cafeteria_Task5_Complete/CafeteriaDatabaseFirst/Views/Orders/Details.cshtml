@@ -1,0 +1,29 @@
+@model PurchaseOrder
+@{ ViewData["Title"] = "Order Details"; }
+<div class="heading"><h1>Purchase Order #@Model.Id</h1><a class="button secondary" asp-action="Index">Back to Orders</a></div>
+<div class="card details">
+    <p><strong>Supplier:</strong> @Model.Supplier?.Name</p>
+    <p><strong>Order Date (UTC):</strong> @Model.OrderDate.ToString("yyyy-MM-dd HH:mm")</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+    <div class="table-wrap">
+    <table><thead><tr><th>Product</th><th>Quantity</th><th>Unit Price</th><th>Line Total</th></tr></thead><tbody>
+    @foreach (var item in Model.PurchaseOrderItems)
+    {
+        <tr><td>@item.Product?.Name</td><td>@item.Quantity</td><td>@item.UnitPrice.ToString("0.00") JD</td>
+            <td>@((item.Quantity * item.UnitPrice).ToString("0.00")) JD</td></tr>
+    }
+    </tbody></table>
+    </div>
+    <h2>Total: @(((decimal)ViewBag.Total).ToString("0.00")) JD</h2>
+    @if (Model.Status == "Pending")
+    {
+        <form asp-action="Receive" asp-route-id="@Model.Id" method="post"
+              onsubmit="return confirm('Receive this order and increase inventory?');">
+            <button type="submit">Mark Received (+Stock)</button>
+        </form>
+    }
+    else
+    {
+        <p class="notice">Inventory was already updated for this order. It cannot be received again.</p>
+    }
+</div>

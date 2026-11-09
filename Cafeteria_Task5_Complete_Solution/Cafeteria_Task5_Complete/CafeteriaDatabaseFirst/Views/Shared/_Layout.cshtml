@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@(ViewData["Title"] ?? "Cafeteria") | University Cafeteria</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav container">
+            <a class="brand" asp-controller="Home" asp-action="Index">☕ Campus Cafeteria</a>
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <div class="links">
+                    <a asp-controller="Home" asp-action="Index">Dashboard</a>
+                    <a asp-controller="Categories" asp-action="Index">Categories</a>
+                    <a asp-controller="Suppliers" asp-action="Index">Suppliers</a>
+                    <a asp-controller="Products" asp-action="Index">Products</a>
+                    <a asp-controller="Orders" asp-action="Index">Orders</a>
+                    <form asp-controller="Account" asp-action="Logout" method="post"><button class="text-button" type="submit">Log out (@User.Identity.Name)</button></form>
+                </div>
+            }
+        </nav>
+    </header>
+    <main class="container main-content">
+        @if (TempData["Notice"] is string note)
+        {
+            <div class="notice" role="status">@note</div>
+        }
+        @RenderBody()
+    </main>
+    <footer class="container footer">Task 5 · ASP.NET Core MVC · Entity Framework Core · SQL Server</footer>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

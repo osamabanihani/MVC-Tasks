@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<section class="hero">
+    <span class="eyebrow">TASK 5 / CAFETERIA MANAGEMENT</span>
+    <h1>Inventory &amp; Purchase Management</h1>
+    <p>Welcome, @User.Identity?.Name. Manage your cafeteria in one place.</p>
+</section>
+<div class="stats">
+    <a class="card stat" asp-controller="Categories" asp-action="Index"><span>Categories</span><strong>@ViewBag.Categories</strong></a>
+    <a class="card stat" asp-controller="Suppliers" asp-action="Index"><span>Suppliers</span><strong>@ViewBag.Suppliers</strong></a>
+    <a class="card stat" asp-controller="Products" asp-action="Index"><span>Products</span><strong>@ViewBag.Products</strong></a>
+    <a class="card stat" asp-controller="Orders" asp-action="Index"><span>Purchase Orders</span><strong>@ViewBag.Orders</strong></a>
+</div>
+<p><a class="button" asp-controller="Orders" asp-action="Create">+ Create Purchase Order</a></p>
+<p class="muted">Orders begin as Pending. Inventory increases only when an order is marked Received.</p>
