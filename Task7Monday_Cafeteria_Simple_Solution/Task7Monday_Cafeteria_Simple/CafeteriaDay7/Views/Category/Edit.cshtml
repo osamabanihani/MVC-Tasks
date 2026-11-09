@@ -1,0 +1,21 @@
+@model Category
+@{ ViewData["Title"] = "Edit Category"; }
+
+<h1>Edit Category</h1>
+<div class="panel form-panel">
+@using (Html.BeginForm("Edit", "Category", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, "Name")
+        @Html.TextBoxFor(m => m.Name, new { @class = "input", type = "text" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, "Description")
+        @Html.TextAreaFor(m => m.Description, new { @class = "input", rows = 3 })
+    </div>
+    <button class="button" type="submit">Save</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "button secondary" })
+}
+</div>

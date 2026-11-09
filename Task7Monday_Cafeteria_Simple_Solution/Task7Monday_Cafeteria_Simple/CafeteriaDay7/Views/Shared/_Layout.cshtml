@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Cafeteria Day 7</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="nav container">
+            <a class="brand" href="@Url.Action("Index", "Home")">☕ Campus Cafeteria</a>
+            <div class="links">
+                @Html.ActionLink("Categories", "Index", "Category")
+                @Html.ActionLink("Suppliers", "Index", "Supplier")
+                @Html.ActionLink("Products", "Index", "Product")
+                @Html.ActionLink("Employees", "Index", "Employee")
+                @Html.ActionLink("Orders", "Index", "Order")
+            </div>
+        </nav>
+    </header>
+    <main class="container">
+        @RenderBody()
+    </main>
+    <footer class="container">ASP.NET Core MVC · Entity Framework Core · SQL Server · Task 7</footer>
+</body>
+</html>

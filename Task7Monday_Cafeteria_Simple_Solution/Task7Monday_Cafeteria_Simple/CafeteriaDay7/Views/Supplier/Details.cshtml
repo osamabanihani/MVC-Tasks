@@ -1,0 +1,15 @@
+@model Supplier
+@{ ViewData["Title"] = "Supplier Details"; }
+
+<h1>Supplier Details #@Model.Id</h1>
+<div class="panel details">
+    <p><strong>Name:</strong> @Html.DisplayFor(m => m.Name)</p>
+    <p><strong>Phone:</strong> @Html.DisplayFor(m => m.Phone)</p>
+    <p><strong>Email:</strong> @Html.DisplayFor(m => m.Email)</p>
+    <p><strong>Address:</strong> @Html.DisplayFor(m => m.Address)</p>
+    <p><strong>Products Count:</strong> @Model.Products.Count</p>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "button" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "button secondary" })
+</p>

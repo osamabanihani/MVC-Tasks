@@ -1,0 +1,28 @@
+@model Supplier
+@{ ViewData["Title"] = "Create Supplier"; }
+
+<h1>Create Supplier</h1>
+<div class="panel form-panel">
+@using (Html.BeginForm("Create", "Supplier", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, "Name")
+        @Html.TextBoxFor(m => m.Name, new { @class = "input", type = "text" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Phone, "Phone")
+        @Html.TextBoxFor(m => m.Phone, new { @class = "input", type = "text" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, "Email")
+        @Html.TextBoxFor(m => m.Email, new { @class = "input", type = "email" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address, "Address")
+        @Html.TextBoxFor(m => m.Address, new { @class = "input", type = "text" })
+    </div>
+    <button class="button" type="submit">Save</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "button secondary" })
+}
+</div>

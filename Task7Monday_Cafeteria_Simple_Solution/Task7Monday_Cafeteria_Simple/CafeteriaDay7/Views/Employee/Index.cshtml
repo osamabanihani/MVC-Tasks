@@ -1,0 +1,34 @@
+@model List<Employee>
+@{ ViewData["Title"] = "Employees"; }
+
+<div class="page-heading">
+    <h1>Employees</h1>
+    <a class="button" href="@Url.Action("Create", "Employee")">+ Add New</a>
+</div>
+
+@if (TempData["Error"] != null)
+{
+    <p class="error">@TempData["Error"]</p>
+}
+
+<div class="panel table-scroll">
+<table>
+    <thead>
+        <tr><th>ID</th><th>Name</th><th>Position</th><th>Salary</th><th>Orders Count</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr><td>@item.Id</td><td>@item.FullName</td><td>@item.Position</td><td>@item.Salary.ToString("0.00") JD</td><td>@item.Orders.Count</td><td class="actions">
+            @Html.ActionLink("Details", "Details", new { id = item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            @using (Html.BeginForm("Delete", "Employee", new { id = item.Id }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="delete" onclick="return confirm('Delete this employee?')">Delete</button>
+            }
+        </td></tr>
+    }
+    </tbody>
+</table>
+</div>

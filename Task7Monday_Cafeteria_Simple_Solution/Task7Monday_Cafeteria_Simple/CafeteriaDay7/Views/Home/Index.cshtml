@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<h1>University Cafeteria</h1>
+<p class="muted">Simple MVC Day 7 project — manage all five required tables.</p>
+
+<div class="cards">
+    <a href="@Url.Action("Index", "Category")" class="card"><span>Categories</span><strong>@ViewBag.Categories</strong></a>
+    <a href="@Url.Action("Index", "Supplier")" class="card"><span>Suppliers</span><strong>@ViewBag.Suppliers</strong></a>
+    <a href="@Url.Action("Index", "Product")" class="card"><span>Products</span><strong>@ViewBag.Products</strong></a>
+    <a href="@Url.Action("Index", "Employee")" class="card"><span>Employees</span><strong>@ViewBag.Employees</strong></a>
+    <a href="@Url.Action("Index", "Order")" class="card"><span>Orders</span><strong>@ViewBag.Orders</strong></a>
+</div>
+<p>Use the top menu to add, edit, view details, or delete records.</p>

@@ -1,0 +1,15 @@
+@model Order
+@{ ViewData["Title"] = "Order Details"; }
+
+<h1>Order Details #@Model.Id</h1>
+<div class="panel details">
+    <p><strong>Customer:</strong> @Html.DisplayFor(m => m.CustomerName)</p>
+    <p><strong>Date:</strong> @Model.OrderDate.ToString("yyyy-MM-dd")</p>
+    <p><strong>Total:</strong> @Model.TotalPrice.ToString("0.00") JD</p>
+    <p><strong>Status:</strong> @Html.DisplayFor(m => m.Status)</p>
+    <p><strong>Employee:</strong> @Model.Employee?.FullName</p>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "button" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "button secondary" })
+</p>

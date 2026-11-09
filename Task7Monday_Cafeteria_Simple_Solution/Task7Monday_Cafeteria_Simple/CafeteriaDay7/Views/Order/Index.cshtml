@@ -1,0 +1,34 @@
+@model List<Order>
+@{ ViewData["Title"] = "Orders"; }
+
+<div class="page-heading">
+    <h1>Orders</h1>
+    <a class="button" href="@Url.Action("Create", "Order")">+ Add New</a>
+</div>
+
+@if (TempData["Error"] != null)
+{
+    <p class="error">@TempData["Error"]</p>
+}
+
+<div class="panel table-scroll">
+<table>
+    <thead>
+        <tr><th>ID</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th><th>Employee</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr><td>@item.Id</td><td>@item.CustomerName</td><td>@item.OrderDate.ToString("yyyy-MM-dd")</td><td>@item.TotalPrice.ToString("0.00") JD</td><td>@item.Status</td><td>@item.Employee?.FullName</td><td class="actions">
+            @Html.ActionLink("Details", "Details", new { id = item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            @using (Html.BeginForm("Delete", "Order", new { id = item.Id }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="delete" onclick="return confirm('Delete this order?')">Delete</button>
+            }
+        </td></tr>
+    }
+    </tbody>
+</table>
+</div>

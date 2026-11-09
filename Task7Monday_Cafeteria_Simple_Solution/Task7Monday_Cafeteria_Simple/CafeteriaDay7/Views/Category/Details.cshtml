@@ -1,0 +1,13 @@
+@model Category
+@{ ViewData["Title"] = "Category Details"; }
+
+<h1>Category Details #@Model.Id</h1>
+<div class="panel details">
+    <p><strong>Name:</strong> @Html.DisplayFor(m => m.Name)</p>
+    <p><strong>Description:</strong> @Html.DisplayFor(m => m.Description)</p>
+    <p><strong>Products Count:</strong> @Model.Products.Count</p>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "button" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "button secondary" })
+</p>

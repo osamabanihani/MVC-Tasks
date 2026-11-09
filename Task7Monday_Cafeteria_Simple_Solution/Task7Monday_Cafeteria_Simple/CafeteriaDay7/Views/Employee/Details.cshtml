@@ -1,0 +1,17 @@
+@model Employee
+@{ ViewData["Title"] = "Employee Details"; }
+
+<h1>Employee Details #@Model.Id</h1>
+<div class="panel details">
+    <p><strong>Full Name:</strong> @Html.DisplayFor(m => m.FullName)</p>
+    <p><strong>Phone:</strong> @Html.DisplayFor(m => m.Phone)</p>
+    <p><strong>Email:</strong> @Html.DisplayFor(m => m.Email)</p>
+    <p><strong>Position:</strong> @Html.DisplayFor(m => m.Position)</p>
+    <p><strong>Salary:</strong> @Model.Salary.ToString("0.00") JD</p>
+    <p><strong>Hire Date:</strong> @Model.HireDate.ToString("yyyy-MM-dd")</p>
+    <p><strong>Orders Count:</strong> @Model.Orders.Count</p>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "button" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "button secondary" })
+</p>
