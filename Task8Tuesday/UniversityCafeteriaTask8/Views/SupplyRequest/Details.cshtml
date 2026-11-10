@@ -1,0 +1,36 @@
+@model SupplyRequest
+@{
+    ViewData["Title"] = "Request Details";
+    bool isAdmin = User.IsInRole("Admin") || User.IsInRole("SuperAdmin");
+}
+<h1>Request #@Model.Id</h1>
+<p><b>Owner:</b> @(Model.User?.FullName)</p>
+<p><b>Date:</b> @Model.RequestDate.ToString("yyyy-MM-dd HH:mm")</p>
+<p><b>Status:</b> @Model.Status</p>
+<table>
+    <tr><th>Product</th><th>Quantity</th><th>Unit Price (JD)</th><th>Line Total (JD)</th></tr>
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>@(item.Product?.Name)</td>
+            <td>@item.Quantity</td>
+            <td>@item.Price.ToString("0.00")</td>
+            <td>@((item.Price * item.Quantity).ToString("0.00"))</td>
+        </tr>
+    }
+</table>
+<h3>Total: @Model.TotalPrice.ToString("0.00") JD</h3>
+@if (Model.Status == "Pending")
+{
+    <p><a asp-action="Edit" asp-route-id="@Model.Id">Edit Quantities</a></p>
+    @if (isAdmin)
+    {
+        <form asp-action="Approve" asp-route-id="@Model.Id" method="post" class="inline">
+            <button type="submit">Approve</button>
+        </form>
+        <form asp-action="Reject" asp-route-id="@Model.Id" method="post" class="inline">
+            <button type="submit" class="danger">Reject</button>
+        </form>
+    }
+}
+<p><a asp-action="Index">Back to Requests</a></p>

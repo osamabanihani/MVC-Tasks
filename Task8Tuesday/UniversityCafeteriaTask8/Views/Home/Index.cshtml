@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Home";
+}
+<h1>University Cafeteria</h1>
+<p>Simple Supply Request Management System - Task 8.</p>
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <p>You are logged in. Use the links at the top to manage products and requests.</p>
+    @if (User.IsInRole("SuperAdmin"))
+    {
+        <p>You are a SuperAdmin: you can manage users and their roles.</p>
+    }
+    else if (User.IsInRole("Admin"))
+    {
+        <p>You are an Admin: you can manage products and approve/reject requests.</p>
+    }
+    else
+    {
+        <p>You are a User: you can submit and view your own supply requests.</p>
+    }
+}
+else
+{
+    <p><a asp-controller="Account" asp-action="Register">Create an account</a> or <a asp-controller="Account" asp-action="Login">Login</a>.</p>
+}

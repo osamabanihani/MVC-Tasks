@@ -1,0 +1,24 @@
+@model EditRequestViewModel
+@{
+    ViewData["Title"] = "Edit Request";
+}
+<h1>Edit Request #@Model.Id</h1>
+<p>Change the quantities for this pending request.</p>
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+    <input type="hidden" asp-for="Id" />
+    <table>
+        <tr><th>Product</th><th>Quantity</th></tr>
+        @for (int i = 0; i < Model.Items.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Model.Items[i].ProductName
+                    <input type="hidden" asp-for="Items[i].Id" />
+                </td>
+                <td><input asp-for="Items[i].Quantity" type="number" min="1" /></td>
+            </tr>
+        }
+    </table>
+    <p><button type="submit">Save Changes</button></p>
+</form>
+<a asp-action="Index">Back</a>

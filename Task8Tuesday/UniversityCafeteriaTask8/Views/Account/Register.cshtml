@@ -1,0 +1,18 @@
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+<h1>Register</h1>
+<form asp-action="Register" method="post" class="small-form">
+    <div asp-validation-summary="All" class="error"></div>
+    <label asp-for="FullName">Full Name</label>
+    <input asp-for="FullName" />
+    <label asp-for="Email">Email</label>
+    <input asp-for="Email" />
+    <label asp-for="Password">Password</label>
+    <input asp-for="Password" type="password" />
+    <label asp-for="ConfirmPassword">Confirm Password</label>
+    <input asp-for="ConfirmPassword" type="password" />
+    <p><button type="submit">Register</button></p>
+</form>
+<p>New accounts receive the User role automatically.</p>

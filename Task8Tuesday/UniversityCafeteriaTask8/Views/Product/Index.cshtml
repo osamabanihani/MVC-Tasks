@@ -1,0 +1,33 @@
+@model List<Product>
+@{
+    ViewData["Title"] = "Products";
+    bool isAdmin = User.IsInRole("Admin") || User.IsInRole("SuperAdmin");
+}
+<h1>Products</h1>
+@if (isAdmin)
+{
+    <p><a class="button" asp-action="Create">Add Product</a></p>
+}
+<table>
+    <tr><th>ID</th><th>Name</th><th>Price (JD)</th><th>Available Quantity</th><th>Actions</th></tr>
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@p.Id</td>
+            <td>@p.Name</td>
+            <td>@p.Price.ToString("0.00")</td>
+            <td>@p.Quantity</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@p.Id">Details</a>
+                @if (isAdmin)
+                {
+                    <a asp-action="Edit" asp-route-id="@p.Id">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@p.Id" method="post" class="inline"
+                          onsubmit="return confirm('Delete this product?');">
+                        <button class="danger" type="submit">Delete</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+</table>

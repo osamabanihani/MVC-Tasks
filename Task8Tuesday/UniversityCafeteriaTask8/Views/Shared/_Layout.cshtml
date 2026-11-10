@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - University Cafeteria</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav>
+            <a asp-controller="Home" asp-action="Index"><strong>Cafeteria</strong></a>
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a asp-controller="Product" asp-action="Index">Products</a>
+                <a asp-controller="SupplyRequest" asp-action="Index">Supply Requests</a>
+                <a asp-controller="SupplyRequest" asp-action="Create">New Request</a>
+                @if (User.IsInRole("SuperAdmin"))
+                {
+                    <a asp-controller="Admin" asp-action="Index">Manage Users</a>
+                }
+                <span class="right">Hello, @User.Identity.Name</span>
+                <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
+                    <button type="submit">Logout</button>
+                </form>
+            }
+            else
+            {
+                <span class="right"></span>
+                <a asp-controller="Account" asp-action="Register">Register</a>
+                <a asp-controller="Account" asp-action="Login">Login</a>
+            }
+        </nav>
+    </header>
+    <main>
+        @if (TempData["Error"] != null)
+        {
+            <p class="alert">@TempData["Error"]</p>
+        }
+        @RenderBody()
+    </main>
+</body>
+</html>

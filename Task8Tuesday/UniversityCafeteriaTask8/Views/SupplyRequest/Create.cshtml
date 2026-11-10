@@ -1,0 +1,30 @@
+@model CreateRequestViewModel
+@{
+    ViewData["Title"] = "Create Request";
+    var products = ViewBag.Products as List<Product> ?? new List<Product>();
+}
+<h1>Create Supply Request</h1>
+<p>Choose up to 3 products. Leave unused rows empty.</p>
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="error"></div>
+    <table>
+        <tr><th>Product</th><th>Quantity</th></tr>
+        @for (int i = 0; i < 3; i++)
+        {
+            <tr>
+                <td>
+                    <select name="Items[@i].ProductId">
+                        <option value="0">-- No product --</option>
+                        @foreach (var p in products)
+                        {
+                            <option value="@p.Id">@p.Name - @p.Price.ToString("0.00") JD</option>
+                        }
+                    </select>
+                </td>
+                <td><input type="number" name="Items[@i].Quantity" value="0" min="0" /></td>
+            </tr>
+        }
+    </table>
+    <p><button type="submit">Submit Request</button></p>
+</form>
+<a asp-action="Index">Back</a>

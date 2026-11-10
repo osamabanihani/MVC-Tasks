@@ -1,0 +1,19 @@
+@model Product
+@{
+    ViewData["Title"] = "Edit Product";
+}
+<h1>Edit Product</h1>
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="small-form">
+    <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="All" class="error"></div>
+    <label asp-for="Name">Name</label>
+    <input asp-for="Name" />
+    <label asp-for="Description">Description</label>
+    <input asp-for="Description" />
+    <label asp-for="Price">Price (JD)</label>
+    <input asp-for="Price" type="number" step="0.01" min="0" />
+    <label asp-for="Quantity">Quantity</label>
+    <input asp-for="Quantity" type="number" min="0" />
+    <p><button type="submit">Save Changes</button></p>
+</form>
+<a asp-action="Index">Back</a>

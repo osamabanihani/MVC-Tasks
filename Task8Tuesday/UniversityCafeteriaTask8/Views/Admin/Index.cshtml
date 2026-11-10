@@ -1,0 +1,23 @@
+@model List<UserRowViewModel>
+@{
+    ViewData["Title"] = "Manage Users";
+}
+<h1>Manage Users (SuperAdmin Only)</h1>
+<table>
+    <tr><th>Name</th><th>Email</th><th>Role</th><th>Actions</th></tr>
+    @foreach (var u in Model)
+    {
+        <tr>
+            <td>@u.FullName</td>
+            <td>@u.Email</td>
+            <td>@u.Role</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@u.Id">Change Role</a>
+                <form asp-action="Delete" asp-route-id="@u.Id" method="post" class="inline"
+                      onsubmit="return confirm('Delete this user and all their requests?');">
+                    <button type="submit" class="danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
